@@ -14,7 +14,7 @@ namespace VideoMenuBLL
 
         Video Update(Video vid);
 
-        bool Delete(int Id);
+        Video Delete(int Id);
 
     }
 }

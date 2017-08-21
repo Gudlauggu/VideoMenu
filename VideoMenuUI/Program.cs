@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
+using VideoMenuBLL;
 using VideoMenuEntity;
 
 namespace VideoMenuUI
 {
     class Program
     {
-      
+      static BLLFacade bllFacade = new BLLFacade();
 
         static void Main(string[] args)
         {
             var vid1 = new Video()
             {
-                Id = id++,
                 Name = "The Hobbit",
                 Genre = "Adventure"
             };
-            videos.Add(vid1);
+            bllFacade.VideoService.Create(vid1);
 
             string[] menuItems =
             {
@@ -56,7 +57,7 @@ namespace VideoMenuUI
                         break;
                     case 5:
                         Console.Clear();
-                        FindVideoById();
+                        Console.WriteLine(FindVideoById().Name);
                         Console.WriteLine("Searched for a video\n");
                         break;
                     default:
@@ -75,7 +76,11 @@ namespace VideoMenuUI
             var videoFound = FindVideoById();
             if (videoFound != null)
             {
-                videos.Remove(videoFound);
+                bllFacade.VideoService.Delete(videoFound.Id);
+            }
+            else
+            {
+                Console.WriteLine("Customer not found");
             }
         }
 
@@ -87,25 +92,24 @@ namespace VideoMenuUI
             {
                 Console.WriteLine("Please insert a number");
             }
-            foreach (var video in videos)
-            {
-                if (video.Id == id)
-                {
-                    Console.WriteLine(video.Name);
-                    return video;
-                }
-            }
-
-            return null;
+            
+            return bllFacade.VideoService.Get(id);
         }
 
         public static void EditVideo()
         {
             var video = FindVideoById();
-            Console.WriteLine("Name: ");
-            video.Name = Console.ReadLine();
-            Console.WriteLine("Genre: ");
-            video.Genre = Console.ReadLine();
+            if (video != null)
+            {
+                Console.WriteLine("Name: ");
+                video.Name = Console.ReadLine();
+                Console.WriteLine("Genre: ");
+                video.Genre = Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("Customer not Found");
+            }
         }
 
         public static void AddVideos()
@@ -115,9 +119,8 @@ namespace VideoMenuUI
             Console.WriteLine("Genre: ");
             var genre = Console.ReadLine();
 
-            videos.Add(new Video()
+            bllFacade.VideoService.Create(new Video()
             {
-                Id = id++,
                 Name = name,
                 Genre = genre
             });
@@ -126,7 +129,7 @@ namespace VideoMenuUI
 
         public static void ListAllVideos()
         {
-            foreach (var video in videos)
+            foreach (var video in bllFacade.VideoService.GetAll())
             {
                 Console.WriteLine($"Name: {video.Name}    Genre: {video.Genre}   ID: {video.Id}");
             }
