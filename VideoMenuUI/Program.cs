@@ -78,10 +78,9 @@ namespace VideoMenuUI
             {
                 bllFacade.VideoService.Delete(videoFound.Id);
             }
-            else
-            {
-                Console.WriteLine("Customer not found");
-            }
+
+            var response = videoFound == null ? "Video not found" : "Video was deleted";
+            Console.WriteLine(response);
         }
 
         private static Video FindVideoById()
