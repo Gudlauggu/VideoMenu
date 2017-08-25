@@ -104,11 +104,13 @@ namespace VideoMenuUI
                 video.Name = Console.ReadLine();
                 Console.WriteLine("Genre: ");
                 video.Genre = Console.ReadLine();
+                bllFacade.VideoService.Update(video);
             }
             else
             {
                 Console.WriteLine("Customer not Found");
             }
+            
         }
 
         public static void AddVideos()

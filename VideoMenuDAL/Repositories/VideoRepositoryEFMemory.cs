@@ -11,6 +11,7 @@ namespace VideoMenuDAL.Repositories
     {
         InMemoryContext context;
 
+
         public VideoRepositoryEFMemory(InMemoryContext context)
         {
             this.context = context;
@@ -19,7 +20,7 @@ namespace VideoMenuDAL.Repositories
         public Video Create(Video vid)
         {
             this.context.Videos.Add(vid);
-            this.context.SaveChanges();
+            
             return vid;
 
         }
@@ -28,7 +29,7 @@ namespace VideoMenuDAL.Repositories
         {
             var vid = Get(Id);
             this.context.Videos.Remove(vid);
-            this.context.SaveChanges();
+            
             return vid;
         }
 
