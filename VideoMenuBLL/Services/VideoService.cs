@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using VideoMenuBLL.BusinessObjects;
 using VideoMenuDAL;
-using VideoMenuEntity;
+using VideoMenuDAL.Entities;
+
 
 namespace VideoMenuBLL.Services
 {
@@ -15,44 +17,45 @@ namespace VideoMenuBLL.Services
             this.facade = facade;
         }
 
-        public Video Create(Video vid)
+        public VideoBO Create(VideoBO vid)
         {
             using (var uow = facade.UnitOfWork)
             {
-                var newVid = uow.VideoRepository.Create(vid);
+                var newVid = uow.VideoRepository.Create(Convert(vid));
                 uow.Complete();
-                return newVid;
+                return Convert(newVid);
             }
              
         }
 
-        public Video Delete(int Id)
+        public VideoBO Delete(int Id)
         {
             using (var uow = facade.UnitOfWork)
             {
                 var newVid = uow.VideoRepository.Delete(Id);
                 uow.Complete();
-                return newVid;
+                return Convert(newVid);
             }
         }
 
-        public Video Get(int Id)
+        public VideoBO Get(int Id)
         {
             using (var uow = facade.UnitOfWork)
             {
-                return uow.VideoRepository.Get(Id);
+                return Convert(uow.VideoRepository.Get(Id));
             }
         }
 
-        public List<Video> GetAll()
+        public List<VideoBO> GetAll()
         {
             using (var uow = facade.UnitOfWork)
             {
-                return uow.VideoRepository.GetAll();
+                //return uow.VideoRepository.GetAll();
+                return uow.VideoRepository.GetAll().Select(v => Convert(v)).ToList();
             }
         }
 
-        public Video Update(Video vid)
+        public VideoBO Update(VideoBO vid)
         {
             using (var uow = facade.UnitOfWork)
             {
@@ -64,9 +67,29 @@ namespace VideoMenuBLL.Services
                 videoFromDb.Name = vid.Name;
                 videoFromDb.Genre = vid.Genre;
                 uow.Complete();
-                return videoFromDb;
+                return Convert(videoFromDb);
             }
             
+        }
+
+        private Video Convert(VideoBO vid)
+        {
+            return new Video()
+            {
+                Id = vid.Id,
+                Name = vid.Name,
+                Genre = vid.Genre
+            };
+        }
+
+        private VideoBO Convert(Video vid)
+        {
+            return new VideoBO()
+            {
+                Id = vid.Id,
+                Name = vid.Name,
+                Genre = vid.Genre
+            };
         }
     }
 }

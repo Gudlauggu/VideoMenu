@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VideoMenuEntity;
+using VideoMenuBLL.BusinessObjects;
+
 
 namespace VideoMenuBLL
 {
     public interface IGenreService
     {
-        Genre Create(Genre gen);
+        GenreBO Create(GenreBO gen);
 
-        List<Genre> GetAll();
-        Genre Update(Genre gen);
+        List<GenreBO> GetAll();
+        GenreBO Update(GenreBO gen);
 
         
     }
