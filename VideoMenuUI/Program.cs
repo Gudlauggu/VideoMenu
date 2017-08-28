@@ -10,6 +10,13 @@ namespace VideoMenuUI
     {
       static BLLFacade bllFacade = new BLLFacade();
 
+        private static string[] genreItems =
+        {
+            "Action",
+            "Kids",
+            "Sci-Fi"
+        };
+
         static void Main(string[] args)
         {
             var vid1 = new Video()
@@ -18,6 +25,12 @@ namespace VideoMenuUI
                 Genre = "Adventure"
             };
             bllFacade.VideoService.Create(vid1);
+
+            var gen1 = new Genre()
+            {
+                Name = "Action"
+            };
+            bllFacade.GenreService.Create(gen1);
 
             string[] menuItems =
             {
@@ -28,6 +41,7 @@ namespace VideoMenuUI
                 "Search for a video",
                 "Exit"
             };
+            
 
             var selection = ShowMenu(menuItems);
 
@@ -152,6 +166,24 @@ namespace VideoMenuUI
                    || selection > 6)
             {
                 Console.WriteLine("Please select a number between 1-6\n");
+            }
+            return selection;
+        }
+
+        private static int ShowGenre(string[] genreItems)
+        {
+            Console.WriteLine("Select Genre: ");
+            for (int i = 0; i < genreItems.Length; i++)
+            {
+                Console.WriteLine($"{(i + 1)}: {genreItems[i]}");
+            }
+
+            int selection;
+            while (!int.TryParse(Console.ReadLine(), out selection)
+                   || selection < 1
+                   || selection > 3)
+            {
+                Console.WriteLine("Please select a number between 1-3\n");
             }
             return selection;
         }
