@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
 using VideoMenuBLL;
-using VideoMenuEntity;
+using VideoMenuBLL.BusinessObjects;
+using VideoMenuDAL.Entities;
+
 
 namespace VideoMenuUI
 {
@@ -19,14 +21,14 @@ namespace VideoMenuUI
 
         static void Main(string[] args)
         {
-            var vid1 = new Video()
+            var vid1 = new VideoBO()
             {
                 Name = "The Hobbit",
                 Genre = "Adventure"
             };
             bllFacade.VideoService.Create(vid1);
 
-            var gen1 = new Genre()
+            var gen1 = new GenreBO()
             {
                 Name = "Action"
             };
@@ -97,7 +99,7 @@ namespace VideoMenuUI
             Console.WriteLine(response);
         }
 
-        private static Video FindVideoById()
+        private static VideoBO FindVideoById()
         {
             Console.WriteLine("Insert video Id: ");
             int id;
@@ -134,7 +136,7 @@ namespace VideoMenuUI
             Console.WriteLine("Genre: ");
             var genre = Console.ReadLine();
 
-            bllFacade.VideoService.Create(new Video()
+            bllFacade.VideoService.Create(new VideoBO()
             {
                 Name = name,
                 Genre = genre
