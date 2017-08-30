@@ -65,7 +65,7 @@ namespace VideoMenuBLL.Services
                     throw new InvalidOperationException("Customer not found");
                 }
                 videoFromDb.Name = vid.Name;
-                videoFromDb.Genre = vid.Genre;
+                
                 uow.Complete();
                 return Convert(videoFromDb);
             }
@@ -78,7 +78,7 @@ namespace VideoMenuBLL.Services
             {
                 Id = vid.Id,
                 Name = vid.Name,
-                Genre = vid.Genre
+                
             };
         }
 
@@ -88,7 +88,7 @@ namespace VideoMenuBLL.Services
             {
                 Id = vid.Id,
                 Name = vid.Name,
-                Genre = vid.Genre
+                
             };
         }
     }
