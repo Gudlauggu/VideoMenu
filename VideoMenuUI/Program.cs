@@ -24,7 +24,7 @@ namespace VideoMenuUI
             var vid1 = new VideoBO()
             {
                 Name = "The Hobbit",
-                Genre = "Adventure"
+                
             };
             bllFacade.VideoService.Create(vid1);
 
@@ -118,8 +118,7 @@ namespace VideoMenuUI
             {
                 Console.WriteLine("Name: ");
                 video.Name = Console.ReadLine();
-                Console.WriteLine("Genre: ");
-                video.Genre = Console.ReadLine();
+                
                 bllFacade.VideoService.Update(video);
             }
             else
@@ -133,13 +132,12 @@ namespace VideoMenuUI
         {
             Console.WriteLine("Name: ");
             var name = Console.ReadLine();
-            Console.WriteLine("Genre: ");
-            var genre = Console.ReadLine();
+            
 
             bllFacade.VideoService.Create(new VideoBO()
             {
                 Name = name,
-                Genre = genre
+                
             });
             Console.Clear();
         }
@@ -148,7 +146,7 @@ namespace VideoMenuUI
         {
             foreach (var video in bllFacade.VideoService.GetAll())
             {
-                Console.WriteLine($"Name: {video.Name}    Genre: {video.Genre}   ID: {video.Id}");
+                Console.WriteLine($"Name: {video.Name}    Genre:    ID: {video.Id}");
             }
             Console.WriteLine("\n");
         }
