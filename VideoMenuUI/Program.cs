@@ -21,18 +21,21 @@ namespace VideoMenuUI
 
         static void Main(string[] args)
         {
-            var vid1 = new VideoBO()
-            {
-                Name = "The Hobbit",
-                
-            };
-            bllFacade.VideoService.Create(vid1);
-
             var gen1 = new GenreBO()
             {
                 Name = "Action"
             };
-            bllFacade.GenreService.Create(gen1);
+            gen1 = bllFacade.GenreService.Create(gen1);
+
+            var vid1 = new VideoBO()
+            {
+                Name = "The Hobbit",
+                Genre = gen1
+            };
+            
+            bllFacade.VideoService.Create(vid1);
+            
+            
 
             string[] menuItems =
             {
@@ -146,7 +149,7 @@ namespace VideoMenuUI
         {
             foreach (var video in bllFacade.VideoService.GetAll())
             {
-                Console.WriteLine($"Name: {video.Name}    Genre:    ID: {video.Id}");
+                Console.WriteLine($"Name: {video.Name}    Genre: {video.Genre}    ID: {video.Id}");
             }
             Console.WriteLine("\n");
         }

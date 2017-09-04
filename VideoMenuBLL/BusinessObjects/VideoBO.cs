@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace VideoMenuBLL.BusinessObjects
 
 {
@@ -9,6 +10,6 @@ namespace VideoMenuBLL.BusinessObjects
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        
+        public GenreBO Genre { get; set; }
     }
 }

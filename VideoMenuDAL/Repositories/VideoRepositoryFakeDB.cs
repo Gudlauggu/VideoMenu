@@ -19,7 +19,7 @@ namespace VideoMenuDAL.Repositories
             {
                 Id = Id++,
                 Name = vid.Name,
-                Genre = vid.Genre
+                
             });
             return newVideo;
         }
